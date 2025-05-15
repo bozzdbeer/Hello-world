@@ -1,0 +1,43 @@
+#include <iostream>
+#include <limits>
+#include <string>
+
+void getLimitedInput() {
+    char buffer[100];
+    std::cout << "Enter a short code (only first 5 characters will be read): ";
+    std::cin.width(6);  // Read max 5 characters (+ null terminator)
+    std::cin >> buffer;
+    std::cout << "Captured code: " << buffer << std::endl;
+}
+
+int main() {
+    std::cout << "--- Form Input Example ---" << std::endl;
+
+    // Get quantity
+    int quantity;
+    std::cout << "Enter the quantity: ";
+    while (true) {
+        std::cin >> quantity;
+        if (std::cin.fail() || quantity <= 0) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please enter a valid positive number: ";
+        } else {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            break;
+        }
+    }
+
+    // Get item name
+    std::string item;
+    std::cout << "Enter the item name: ";
+    std::getline(std::cin, item);
+
+    // Output the result
+    std::cout << "You have added " << quantity << " " << item << "(s) to your list." << std::endl;
+
+    // Call the limited input function
+    getLimitedInput();
+
+    return 0;
+}
